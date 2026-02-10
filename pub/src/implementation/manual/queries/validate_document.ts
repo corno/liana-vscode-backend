@@ -9,7 +9,7 @@
 // import * as d from "../../../interface/generated/liana/schemas/server/data"
 // import * as d_token from "astn-core/dist/interface/generated/liana/schemas/token/data"
 // import * as d_ide from "astn/dist/interface/generated/liana/schemas/ide/data"
-// import * as d_parse_result from "astn-core/dist/implementation/manual/schemas/deserialize_parse_tree/transformers/fountain_pen"
+// import * as d_parse_result from "astn-core/dist/implementation/manual/transformers/deserialize_parse_tree/fountain_pen"
 
 // //dependencies
 // import * as ds_path from "pareto-resources/dist/implementation/manual/schemas/node_path/deserializers"

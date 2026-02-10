@@ -9,11 +9,11 @@ import * as d_in from "pareto-liana/dist/interface/to_be_generated/temp_unmashal
 import * as d_token from "astn-core/dist/interface/generated/liana/schemas/token/data"
 import * as d_ast_target from "astn/dist/interface/generated/liana/schemas/authoring_target/data"
 import * as d_fpblock from "pareto-fountain-pen/dist/interface/generated/liana/schemas/prose/data"
-import * as d_out from "../../../../../interface/generated/liana/schemas/server/data"
+import * as d_out from "../../../../interface/generated/liana/schemas/server/data"
 
 //dependencies
 import * as t_astn_target_to_fp from "astn/dist/implementation/manual/schemas/authoring_target/transformers/fountain_pen_block"
-import * as t_default_initialize from "../../schema/transformers/default_initialize"
+import * as t_default_initialize from "../schema/default_initialize"
 import * as t_ast_to_range from "astn/dist/implementation/manual/schemas/parse_tree/transformers/token"
 import * as s_fp from "pareto-fountain-pen/dist/implementation/manual/schemas/block/serializers"
 
