@@ -1,7 +1,7 @@
 import * as _p from 'pareto-core/dist/assign'
 import * as _pi from 'pareto-core/dist/interface'
 
-import * as d_server from "../../../../../interface/generated/liana/schemas/server/data"
+import * as d_server from "../../../interface/generated/liana/schemas/server/data"
 
 type Signature = _pi.Refiner_With_Parameter<string, null, string, d_server.Convert_To_JSON_Parameters>
 
