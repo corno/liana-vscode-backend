@@ -9,9 +9,7 @@ import * as t_signatures from "../../../../../../interface/generated/liana/schem
 
 import * as t_out from "astn-core/dist/interface/generated/liana/schemas/sealed_target/data"
 
-import * as v_serialize_number from "liana-core/dist/implementation/manual/primitives/integer/serializers/decimal"
-
-import * as v_serialize_boolean from "liana-core/dist/implementation/manual/primitives/boolean/serializers/true_false"
+import * as v_primitives_to_text from "liana-core/dist/implementation/manual/transformers/primitives/text"
 
 export const Diagnostic_Severity: t_signatures.Diagnostic_Severity = ($) => ['state', _p.decide.state(
     $,
@@ -71,11 +69,8 @@ export const Position: t_signatures.Position = ($) => ['group', ['verbose', _p.d
             $['line'],
             ($) => ['text', {
                 'delimiter': ['none', null],
-                'value': _p_text_from_list(
-                    v_serialize_number.serialize(
-                        $,
-                    ),
-                    ($) => $,
+                'value': v_primitives_to_text.decimal(
+                    $,
                 ),
             }],
         ),
@@ -83,11 +78,8 @@ export const Position: t_signatures.Position = ($) => ['group', ['verbose', _p.d
             $['character'],
             ($) => ['text', {
                 'delimiter': ['none', null],
-                'value': _p_text_from_list(
-                    v_serialize_number.serialize(
-                        $,
-                    ),
-                    ($) => $,
+                'value': v_primitives_to_text.decimal(
+                    $,
                 ),
             }],
         ),
@@ -400,11 +392,8 @@ export const Validate_Document_Parameters: t_signatures.Validate_Document_Parame
             $['tab size'],
             ($) => ['text', {
                 'delimiter': ['none', null],
-                'value': _p_text_from_list(
-                    v_serialize_number.serialize(
-                        $,
-                    ),
-                    ($) => $,
+                'value': v_primitives_to_text.decimal(
+                    $,
                 ),
             }],
         ),

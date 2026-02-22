@@ -9,9 +9,7 @@ import * as t_signatures from "../../../../../../interface/generated/liana/schem
 
 import * as t_out from "astn-core/dist/interface/generated/liana/schemas/sealed_target/data"
 
-import * as v_serialize_number from "liana-core/dist/implementation/manual/primitives/integer/serializers/decimal"
-
-import * as v_serialize_boolean from "liana-core/dist/implementation/manual/primitives/boolean/serializers/true_false"
+import * as v_primitives_to_text from "liana-core/dist/implementation/manual/transformers/primitives/text"
 
 export const Position: t_signatures.Position = ($) => ['group', ['verbose', _p.dictionary.literal(
     {
@@ -19,11 +17,8 @@ export const Position: t_signatures.Position = ($) => ['group', ['verbose', _p.d
             $['line'],
             ($) => ['text', {
                 'delimiter': ['none', null],
-                'value': _p_text_from_list(
-                    v_serialize_number.serialize(
-                        $,
-                    ),
-                    ($) => $,
+                'value': v_primitives_to_text.decimal(
+                    $,
                 ),
             }],
         ),
@@ -31,11 +26,8 @@ export const Position: t_signatures.Position = ($) => ['group', ['verbose', _p.d
             $['character'],
             ($) => ['text', {
                 'delimiter': ['none', null],
-                'value': _p_text_from_list(
-                    v_serialize_number.serialize(
-                        $,
-                    ),
-                    ($) => $,
+                'value': v_primitives_to_text.decimal(
+                    $,
                 ),
             }],
         ),
@@ -65,11 +57,8 @@ export const Format_Options: t_signatures.Format_Options = ($) => ['group', ['ve
             $['insert spaces'],
             ($) => ['text', {
                 'delimiter': ['none', null],
-                'value': _p_text_from_list(
-                    v_serialize_boolean.serialize(
-                        $,
-                    ),
-                    ($) => $,
+                'value': v_primitives_to_text.true_false(
+                    $,
                 ),
             }],
         ),
@@ -77,11 +66,8 @@ export const Format_Options: t_signatures.Format_Options = ($) => ['group', ['ve
             $['preserve delimiters'],
             ($) => ['text', {
                 'delimiter': ['none', null],
-                'value': _p_text_from_list(
-                    v_serialize_boolean.serialize(
-                        $,
-                    ),
-                    ($) => $,
+                'value': v_primitives_to_text.true_false(
+                    $,
                 ),
             }],
         ),
@@ -89,11 +75,8 @@ export const Format_Options: t_signatures.Format_Options = ($) => ['group', ['ve
             $['preserve final newline state'],
             ($) => ['text', {
                 'delimiter': ['none', null],
-                'value': _p_text_from_list(
-                    v_serialize_boolean.serialize(
-                        $,
-                    ),
-                    ($) => $,
+                'value': v_primitives_to_text.true_false(
+                    $,
                 ),
             }],
         ),
@@ -101,11 +84,8 @@ export const Format_Options: t_signatures.Format_Options = ($) => ['group', ['ve
             $['preserve commas'],
             ($) => ['text', {
                 'delimiter': ['none', null],
-                'value': _p_text_from_list(
-                    v_serialize_boolean.serialize(
-                        $,
-                    ),
-                    ($) => $,
+                'value': v_primitives_to_text.true_false(
+                    $,
                 ),
             }],
         ),
