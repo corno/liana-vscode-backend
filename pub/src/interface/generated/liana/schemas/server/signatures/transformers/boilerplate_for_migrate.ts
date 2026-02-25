@@ -1,15 +1,15 @@
 
 import * as _pi from 'pareto-core/dist/interface'
 
-import * as i_out from "astn-core/dist/interface/generated/liana/schemas/sealed_target/data"
+import * as i_out from "../../data"
 
-import * as i_in from "./data"
+import * as i_in from "../../data"
 
 export namespace Diagnostic_Severity_ {
     
     export type I = i_in.Diagnostic_Severity
     
-    export type O = i_out.Value
+    export type O = i_out.Diagnostic_Severity
     
     export namespace P {
         
@@ -25,7 +25,7 @@ export namespace Position_ {
     
     export type I = i_in.Position
     
-    export type O = i_out.Value
+    export type O = i_out.Position
     
     export namespace P {
         
@@ -41,7 +41,7 @@ export namespace Range_ {
     
     export type I = i_in.Range
     
-    export type O = i_out.Value
+    export type O = i_out.Range
     
     export namespace P {
         
@@ -57,7 +57,7 @@ export namespace Diagnostic_ {
     
     export type I = i_in.Diagnostic
     
-    export type O = i_out.Value
+    export type O = i_out.Diagnostic
     
     export namespace P {
         
@@ -73,7 +73,7 @@ export namespace Diagnostics_ {
     
     export type I = i_in.Diagnostics
     
-    export type O = i_out.Value
+    export type O = i_out.Diagnostics
     
     export namespace P {
         
@@ -89,7 +89,7 @@ export namespace Document_Data_ {
     
     export type I = i_in.Document_Data
     
-    export type O = i_out.Value
+    export type O = i_out.Document_Data
     
     export namespace P {
         
@@ -105,7 +105,7 @@ export namespace Hover_Texts_ {
     
     export type I = i_in.Hover_Texts
     
-    export type O = i_out.Value
+    export type O = i_out.Hover_Texts
     
     export namespace P {
         
@@ -121,7 +121,7 @@ export namespace Optional_Hover_Texts_ {
     
     export type I = i_in.Optional_Hover_Texts
     
-    export type O = i_out.Value
+    export type O = i_out.Optional_Hover_Texts
     
     export namespace P {
         
@@ -137,7 +137,7 @@ export namespace On_Hover_Result_ {
     
     export type I = i_in.On_Hover_Result
     
-    export type O = i_out.Value
+    export type O = i_out.On_Hover_Result
     
     export namespace P {
         
@@ -153,7 +153,7 @@ export namespace Completion_Items_ {
     
     export type I = i_in.Completion_Items
     
-    export type O = i_out.Value
+    export type O = i_out.Completion_Items
     
     export namespace P {
         
@@ -169,7 +169,7 @@ export namespace Optional_Completion_Items_ {
     
     export type I = i_in.Optional_Completion_Items
     
-    export type O = i_out.Value
+    export type O = i_out.Optional_Completion_Items
     
     export namespace P {
         
@@ -185,7 +185,7 @@ export namespace On_Completion_Result_ {
     
     export type I = i_in.On_Completion_Result
     
-    export type O = i_out.Value
+    export type O = i_out.On_Completion_Result
     
     export namespace P {
         
@@ -201,7 +201,7 @@ export namespace On_Validate_Document_Result_ {
     
     export type I = i_in.On_Validate_Document_Result
     
-    export type O = i_out.Value
+    export type O = i_out.On_Validate_Document_Result
     
     export namespace P {
         
@@ -217,7 +217,7 @@ export namespace Convert_To_JSON_Parameters_ {
     
     export type I = i_in.Convert_To_JSON_Parameters
     
-    export type O = i_out.Value
+    export type O = i_out.Convert_To_JSON_Parameters
     
     export namespace P {
         
@@ -233,7 +233,7 @@ export namespace Seal_Parameters_ {
     
     export type I = i_in.Seal_Parameters
     
-    export type O = i_out.Value
+    export type O = i_out.Seal_Parameters
     
     export namespace P {
         
@@ -249,7 +249,7 @@ export namespace On_Completion_Parameters_ {
     
     export type I = i_in.On_Completion_Parameters
     
-    export type O = i_out.Value
+    export type O = i_out.On_Completion_Parameters
     
     export namespace P {
         
@@ -265,7 +265,7 @@ export namespace On_Hover_Parameters_ {
     
     export type I = i_in.On_Hover_Parameters
     
-    export type O = i_out.Value
+    export type O = i_out.On_Hover_Parameters
     
     export namespace P {
         
@@ -281,7 +281,7 @@ export namespace Validate_Document_Parameters_ {
     
     export type I = i_in.Validate_Document_Parameters
     
-    export type O = i_out.Value
+    export type O = i_out.Validate_Document_Parameters
     
     export namespace P {
         

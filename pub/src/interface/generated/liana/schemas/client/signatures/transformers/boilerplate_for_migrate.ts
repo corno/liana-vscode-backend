@@ -1,15 +1,15 @@
 
 import * as _pi from 'pareto-core/dist/interface'
 
-import * as i_out from "astn-core/dist/interface/generated/liana/schemas/sealed_target/data"
+import * as i_out from "../../data"
 
-import * as i_in from "./data"
+import * as i_in from "../../data"
 
 export namespace Position_ {
     
     export type I = i_in.Position
     
-    export type O = i_out.Value
+    export type O = i_out.Position
     
     export namespace P {
         
@@ -25,7 +25,7 @@ export namespace Range_ {
     
     export type I = i_in.Range
     
-    export type O = i_out.Value
+    export type O = i_out.Range
     
     export namespace P {
         
@@ -41,7 +41,7 @@ export namespace Format_Options_ {
     
     export type I = i_in.Format_Options
     
-    export type O = i_out.Value
+    export type O = i_out.Format_Options
     
     export namespace P {
         
@@ -57,7 +57,7 @@ export namespace Text_Edit_ {
     
     export type I = i_in.Text_Edit
     
-    export type O = i_out.Value
+    export type O = i_out.Text_Edit
     
     export namespace P {
         
@@ -73,7 +73,7 @@ export namespace Replace_ {
     
     export type I = i_in.Replace
     
-    export type O = i_out.Value
+    export type O = i_out.Replace
     
     export namespace P {
         
@@ -89,7 +89,7 @@ export namespace Format_Result_ {
     
     export type I = i_in.Format_Result
     
-    export type O = i_out.Value
+    export type O = i_out.Format_Result
     
     export namespace P {
         
@@ -105,7 +105,7 @@ export namespace Format_Error_ {
     
     export type I = i_in.Format_Error
     
-    export type O = i_out.Value
+    export type O = i_out.Format_Error
     
     export namespace P {
         
@@ -121,7 +121,7 @@ export namespace Format_Parameters_ {
     
     export type I = i_in.Format_Parameters
     
-    export type O = i_out.Value
+    export type O = i_out.Format_Parameters
     
     export namespace P {
         
@@ -137,7 +137,7 @@ export namespace Sort_Alphabetically_Parameters_ {
     
     export type I = i_in.Sort_Alphabetically_Parameters
     
-    export type O = i_out.Value
+    export type O = i_out.Sort_Alphabetically_Parameters
     
     export namespace P {
         
