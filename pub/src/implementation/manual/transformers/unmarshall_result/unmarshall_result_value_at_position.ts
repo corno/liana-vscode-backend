@@ -15,17 +15,29 @@ import * as t_parse_tree_to_start_token_range from "astn-core/dist/implementatio
 import * as t_parse_tree_to_full_value_range from "astn-core/dist/implementation/manual/transformers/parse_tree/full_range"
 import * as t_astn_location_to_location from "../astn_core_location/location"
 
+
+export type Found = 
+| ['value', d_out.Value]
+
 export type Document = _pi.Transformer_With_Parameter<
     d_in.Document,
-    _pi.Optional_Value<d_out.Value>,
+    Found,
     {
         'position': d_location.Position
     }
 >
 
+// export type Items = _pi.Transformer_With_Parameter<
+//     d_in.Items,
+//     Found,
+//     {
+//         'position': d_location.Position
+//     }
+// >
+
 export type Value = _pi.Transformer_With_Parameter<
     d_in.Value,
-    _pi.Optional_Value<d_out.Value>,
+    Found,
     {
         'position': d_location.Position
     }
@@ -55,60 +67,53 @@ export const Value: Value = ($, $p) => {
             ($p.range.end.line === $.line && $p.range.end.character >= $.character)
         )
 
-    const determine = (
-    ): _pi.Optional_Value<d_out.Value> => is_in_range(
-        $p.position,
-        {
-            'range': t_astn_location_to_location.Range($)
-        }
-    )
-            ? _p.optional.literal.set(value)
-            : _p.optional.literal.not_set()
+    const this_value = (
+    ): Found => ['value', $]
 
 
-    _p.decide.state($.unmarshalled, ($) => {
+    return _p.decide.state($.unmarshalled, ($) => {
         switch ($[0]) {
-            case 'number': return _p.ss($, ($) => determine())
-            case 'boolean': return _p.ss($, ($) => determine())
+            case 'number': return _p.ss($, ($) => this_value())
+            case 'boolean': return _p.ss($, ($) => this_value())
             case 'component': return _p.ss($, ($) => Value($.value, $p))
             case 'dictionary': return _p.ss($, ($) => _p.decide.state($['found value type'], ($) => {
                 switch ($[0]) {
-                    case 'valid': return _p.ss($, ($) => )
-                    case 'invalid': return _p.ss($, ($) => determine())
+                    case 'valid': return _p.ss($, ($) => _p.decide.list.has_match)
+                    case 'invalid': return _p.ss($, ($) => this_value())
                     default: return _p.au($[0])
                 }
             }))
             case 'group': return _p.ss($, ($) => _p.decide.state($['found value type'], ($) => {
                 switch ($[0]) {
                     case 'valid': return _p.ss($, ($) => )
-                    case 'invalid': return _p.ss($, ($) => determine())
+                    case 'invalid': return _p.ss($, ($) => this_value())
                     default: return _p.au($[0])
                 }
             }))
             case 'list': return _p.ss($, ($) => _p.decide.state($['found value type'], ($) => {
                 switch ($[0]) {
                     case 'valid': return _p.ss($, ($) => )
-                    case 'invalid': return _p.ss($, ($) => determine())
+                    case 'invalid': return _p.ss($, ($) => this_value())
                     default: return _p.au($[0])
                 }
             }))
-            case 'nothing': return _p.ss($, ($) => determine())
+            case 'nothing': return _p.ss($, ($) => this_value())
             case 'optional': return _p.ss($, ($) => _p.decide.state($['found value type'], ($) => {
                 switch ($[0]) {
                     case 'valid': return _p.ss($, ($) => )
-                    case 'invalid': return _p.ss($, ($) => determine())
+                    case 'invalid': return _p.ss($, ($) => this_value())
                     default: return _p.au($[0])
                 }
             }))
-            case 'reference': return _p.ss($, ($) => determine())
+            case 'reference': return _p.ss($, ($) => this_value())
             case 'state': return _p.ss($, ($) => _p.decide.state($['found value type'], ($) => {
                 switch ($[0]) {
                     case 'valid': return _p.ss($, ($) => )
-                    case 'invalid': return _p.ss($, ($) => determine())
+                    case 'invalid': return _p.ss($, ($) => this_value())
                     default: return _p.au($[0])
                 }
             }))
-            case 'text': return _p.ss($, ($) => determine())
+            case 'text': return _p.ss($, ($) => this_value())
             default: return _p.au($[0])
         }
     })
