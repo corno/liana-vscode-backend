@@ -5,6 +5,8 @@ import * as i__imports_hover_info from "../hover_info/data"
 
 import * as i__imports_location from "../location/data"
 
+import * as i__imports_path from "../path/data"
+
 export namespace Result_ {
     
     export namespace contents {
@@ -27,7 +29,7 @@ export namespace Parameters_ {
     
     export type content = string
     
-    export type file_path = string
+    export type file_path = i__imports_path.Node_Path
     
     export type position = i__imports_location.Position
     

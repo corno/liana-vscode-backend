@@ -13,6 +13,8 @@ import * as v_primitives_to_text from "liana-core/dist/implementation/manual/tra
 
 import * as v_external_location from "../../location/transformers/astn_sealed_target"
 
+import * as v_external_path from "../../path/transformers/astn_sealed_target"
+
 export const Result: t_signatures.Result = ($) => ['group', ['verbose', _p.dictionary.literal(
     {
         "diagnostics": _p_change_context(
@@ -96,10 +98,9 @@ export const Result: t_signatures.Result = ($) => ['group', ['verbose', _p.dicti
                                                     {
                                                         "file path": _p_change_context(
                                                             $['file path'],
-                                                            ($) => ['text', {
-                                                                'delimiter': ['quote', null],
-                                                                'value': $,
-                                                            }],
+                                                            ($) => v_external_path.Node_Path(
+                                                                $,
+                                                            ),
                                                         ),
                                                         "range": _p_change_context(
                                                             $['range'],
@@ -141,10 +142,9 @@ export const Parameters: t_signatures.Parameters = ($) => ['group', ['verbose', 
         ),
         "file path": _p_change_context(
             $['file path'],
-            ($) => ['text', {
-                'delimiter': ['quote', null],
-                'value': $,
-            }],
+            ($) => v_external_path.Node_Path(
+                $,
+            ),
         ),
         "tab size": _p_change_context(
             $['tab size'],

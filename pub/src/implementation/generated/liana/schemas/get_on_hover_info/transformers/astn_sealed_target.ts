@@ -15,6 +15,8 @@ import * as v_external_hover_info from "../../hover_info/transformers/astn_seale
 
 import * as v_external_location from "../../location/transformers/astn_sealed_target"
 
+import * as v_external_path from "../../path/transformers/astn_sealed_target"
+
 export const Result: t_signatures.Result = ($) => ['group', ['verbose', _p.dictionary.literal(
     {
         "contents": _p_change_context(
@@ -44,10 +46,9 @@ export const Parameters: t_signatures.Parameters = ($) => ['group', ['verbose', 
         ),
         "file path": _p_change_context(
             $['file path'],
-            ($) => ['text', {
-                'delimiter': ['quote', null],
-                'value': $,
-            }],
+            ($) => v_external_path.Node_Path(
+                $,
+            ),
         ),
         "position": _p_change_context(
             $['position'],

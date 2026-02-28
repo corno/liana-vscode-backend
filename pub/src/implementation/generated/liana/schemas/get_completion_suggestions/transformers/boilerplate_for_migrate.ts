@@ -11,6 +11,8 @@ import * as v_completion_suggestions from "../../completion_suggestions/transfor
 
 import * as v_location from "../../location/transformers/boilerplate_for_migrate"
 
+import * as v_path from "../../path/transformers/boilerplate_for_migrate"
+
 export const Result: t_signatures.Result = ($) => ({
     'completion suggestions': _p_change_context(
         $['completion suggestions'],
@@ -27,7 +29,9 @@ export const Parameters: t_signatures.Parameters = ($) => ({
     ),
     'file path': _p_change_context(
         $['file path'],
-        ($) => $,
+        ($) => v_path.Node_Path(
+            $,
+        ),
     ),
     'position': _p_change_context(
         $['position'],

@@ -11,6 +11,8 @@ import * as v_hover_info from "../../hover_info/transformers/boilerplate_for_mig
 
 import * as v_location from "../../location/transformers/boilerplate_for_migrate"
 
+import * as v_path from "../../path/transformers/boilerplate_for_migrate"
+
 export const Result: t_signatures.Result = ($) => ({
     'contents': _p_change_context(
         $['contents'],
@@ -32,7 +34,9 @@ export const Parameters: t_signatures.Parameters = ($) => ({
     ),
     'file path': _p_change_context(
         $['file path'],
-        ($) => $,
+        ($) => v_path.Node_Path(
+            $,
+        ),
     ),
     'position': _p_change_context(
         $['position'],

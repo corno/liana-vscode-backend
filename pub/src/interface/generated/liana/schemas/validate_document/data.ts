@@ -3,6 +3,8 @@ import * as _pi from 'pareto-core/dist/interface'
 
 import * as i__imports_location from "../location/data"
 
+import * as i__imports_path from "../path/data"
+
 export namespace Result_ {
     
     export namespace diagnostics {
@@ -39,7 +41,7 @@ export namespace Result_ {
                         
                         export namespace location {
                             
-                            export type file_path = string
+                            export type file_path = i__imports_path.Node_Path
                             
                             export type range = i__imports_location.Range
                             
@@ -90,7 +92,7 @@ export namespace Parameters_ {
     
     export type content = string
     
-    export type file_path = string
+    export type file_path = i__imports_path.Node_Path
     
     export type tab_size = number
     

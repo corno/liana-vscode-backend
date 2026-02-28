@@ -9,6 +9,8 @@ import * as t_out from "../../../../../../interface/generated/liana/schemas/vali
 
 import * as v_location from "../../location/transformers/boilerplate_for_migrate"
 
+import * as v_path from "../../path/transformers/boilerplate_for_migrate"
+
 export const Result: t_signatures.Result = ($) => ({
     'diagnostics': _p_change_context(
         $['diagnostics'],
@@ -74,7 +76,9 @@ export const Result: t_signatures.Result = ($) => ({
                                     ($) => ({
                                         'file path': _p_change_context(
                                             $['file path'],
-                                            ($) => $,
+                                            ($) => v_path.Node_Path(
+                                                $,
+                                            ),
                                         ),
                                         'range': _p_change_context(
                                             $['range'],
@@ -104,7 +108,9 @@ export const Parameters: t_signatures.Parameters = ($) => ({
     ),
     'file path': _p_change_context(
         $['file path'],
-        ($) => $,
+        ($) => v_path.Node_Path(
+            $,
+        ),
     ),
     'tab size': _p_change_context(
         $['tab size'],
