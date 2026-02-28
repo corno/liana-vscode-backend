@@ -2,10 +2,10 @@ import * as _p from 'pareto-core/dist/assign'
 import * as _pdev from 'pareto-core-dev'
 
 import * as d_out from "astn/dist/interface/generated/liana/schemas/authoring_target/data"
-import * as d_in from "pareto/dist/interface/generated/liana/schemas/schema/data";
+import * as d_in from "pareto-liana/dist/interface/generated/liana/schemas/schema/data/resolved"
 
-export const Type_Node = (
-    $: d_in.Type_Node,
+export const Value = (
+    $: d_in.Value,
 ): d_out.Value => ({
     'type': Type_Node_X($)
 })
@@ -43,7 +43,7 @@ export const Type_Node_X = (
         case 'dictionary': return _p.ss($, ($) => ['dictionary', _p.list.literal([])])
         case 'group': return _p.ss($, ($): d_out.Value._type => ['verbose group', $['ordered list'].__l_map(($) => ({
             'key': $.key,
-            'value': Type_Node($.value.node)
+            'value': Value($.value.node)
         }))])
         case 'optional': return _p.ss($, ($) => ['nothing', null])
         case 'state group': return _p.ss($, ($) => ['state', ['missing data', null]])
@@ -56,14 +56,14 @@ export const Type_Node_X = (
 })
 
 export const Type_Node_Resolver = (
-    $: d_in.Node_Resolver,
+    $: d_in.Resolver_Value,
 ): d_out.Value => ({
     'type': Type_Node_Resolver_X($)
 })
 
 
 export const Type_Node_Resolver_X = (
-    $: d_in.Node_Resolver,
+    $: d_in.Resolver_Value,
 ): d_out.Value._type => _p.decide.state($, ($) => {
     switch ($[0]) {
         case 'number': return _p.ss($, ($) => ['text', {

@@ -121,7 +121,7 @@ export const Node = (
     const in_range = is_in_range($p.location, { range: node_range })
 
     const create_default_value_string = (node: d_schema.Type_Node, write_delimiters: boolean) => {
-        const default_initialized_value: d_ast_target.Value = t_default_initialize.Type_Node(node)
+        const default_initialized_value: d_ast_target.Value = t_default_initialize.Value(node)
         const fp_group: d_fpblock.Group = _p.list.literal([
             ['nested block', _p.list.literal<d_fpblock.Block_Part>([
                 t_astn_target_to_fp.Value(default_initialized_value, {
