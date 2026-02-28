@@ -1,28 +1,30 @@
 import * as _p from 'pareto-core/dist/assign'
 import * as _pi from 'pareto-core/dist/interface'
+import * as _pdev from "pareto-core-dev"
 
 import * as d_server from "../../../interface/generated/liana/schemas/server/data"
 
 type Signature = _pi.Refiner_With_Parameter<string, null, string, d_server.Convert_To_JSON_Parameters>
 
 //dependencies
-import * as t_ast_2_json from "astn/dist/implementation/manual/schemas/parse_tree/transformers/json_target"
-import * as s_json from "pareto-json/dist/implementation/manual/schemas/json/serializers"
-import * as ds_authoring_parse_tree from "astn/dist/implementation/manual/schemas/parse_tree/deserializers"
+import * as t_ast_2_json from "astn/dist/implementation/manual/transformers/parse_tree/json_target"
+import * as t_json_to_text from "pareto-json/dist/implementation/manual/transformers/json/text"
+import * as r_astn_parse_tree_from_text from "astn-core/dist/implementation/manual/refiners/parse_tree/text"
 
 
-export const $$: Signature = ($, abort, $p,) => s_json.Document(
+export const $$: Signature = ($, abort, $p,) => t_json_to_text.Value(
     t_ast_2_json.Document(
-        ds_authoring_parse_tree.Document(
+        r_astn_parse_tree_from_text.Document(
             $,
             ($) => abort(null),
             {
-                'tab size': 1,
+                'document resource identifier': _pdev.implement_me("document resource identifier"),
+                "tab size": _pdev.implement_me("tab size")
             },
         )
     ),
     {
-        'indentation': "    ",
-        'newline': '\n'
+        'indentation': _pdev.implement_me("indentation"),
+        'newline': _pdev.implement_me("newline"),
     }
 )
