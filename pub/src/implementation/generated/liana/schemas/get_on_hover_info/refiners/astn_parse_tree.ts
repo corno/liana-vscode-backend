@@ -15,6 +15,8 @@ import * as v_unmarshalled_from_parse_tree from "liana-core/dist/implementation/
 
 import * as v_parse_tree_to_location from "astn-core/dist/implementation/manual/transformers/parse_tree/location"
 
+import * as v_external_hover_info from "../../hover_info/refiners/astn_parse_tree"
+
 import * as v_external_location from "../../location/refiners/astn_parse_tree"
 
 export const Result: t_signatures.Result = ($, abort) => _p_change_context(
@@ -79,31 +81,10 @@ export const Result: t_signatures.Result = ($, abort) => _p_change_context(
                                                 'id': 'hover texts',
                                             },
                                         ),
-                                        ($) => _p.optional.from.optional(
-                                            v_unmarshalled_from_parse_tree.Optional(
+                                        ($) => v_external_hover_info.Hover_Texts(
+                                            $,
+                                            ($) => abort(
                                                 $,
-                                                ($) => abort(
-                                                    $,
-                                                ),
-                                            )['optional'],
-                                        ).map(
-                                            ($) => _p.list.from.list(
-                                                v_unmarshalled_from_parse_tree.List(
-                                                    $,
-                                                    ($) => abort(
-                                                        $,
-                                                    ),
-                                                )['items'],
-                                            ).map(
-                                                ($) => _p_change_context(
-                                                    $['value'],
-                                                    ($) => v_unmarshalled_from_parse_tree.Text(
-                                                        $,
-                                                        ($) => abort(
-                                                            $,
-                                                        ),
-                                                    ),
-                                                ),
                                             ),
                                         ),
                                     ),

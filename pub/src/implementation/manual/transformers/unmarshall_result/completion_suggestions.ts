@@ -5,15 +5,16 @@ import _p_unreachable_code_path from 'pareto-core/dist/_p_unreachable_code_path'
 
 //data types
 import * as d_schema from "pareto-liana/dist/interface/generated/liana/schemas/schema/data/resolved"
-import * as d_in from "pareto-liana/dist/interface/to_be_generated/temp_unmashall_result"
+import * as d_in from "pareto-liana/dist/interface/to_be_generated/unmashall_result"
 import * as d_token from "astn-core/dist/interface/generated/liana/schemas/token/data"
 import * as d_ast_target from "astn/dist/interface/generated/liana/schemas/authoring_target/data"
 import * as d_fpblock from "pareto-fountain-pen/dist/interface/generated/liana/schemas/prose/data"
 import * as d_out from "../../../../interface/generated/liana/schemas/server/data"
+import * as d_location from "../../../../interface/generated/liana/schemas/location/data"
 
 //dependencies
 import * as t_astn_target_to_fp from "astn/dist/implementation/manual/schemas/authoring_target/transformers/fountain_pen_block"
-import * as t_default_initialize from "../schema/default_initialize"
+import * as t_default_initialize from "../liana_schema/authoring_target"
 import * as t_ast_to_range from "astn/dist/implementation/manual/schemas/parse_tree/transformers/token"
 import * as s_fp from "pareto-fountain-pen/dist/implementation/manual/schemas/block/serializers"
 
@@ -103,10 +104,10 @@ export const Group_Content = (
     }))
 )
 
-export const Node = (
-    $: d_in.Node,
+export const Value = (
+    $: d_in.Value,
     $p: {
-        'location': d_token.Relative_Location,
+        'position': d_location.Position,
         'indent': string
     }
 ): d_out.Optional_Completion_Items => {
@@ -160,14 +161,14 @@ export const Node = (
             case 'type parameter': return _p.ss($, ($) => _pdev.implement_me("xx"))
             case 'list': return _p.ss($, ($) => _p.decide.state($['found value type'], ($) => {
                 switch ($[0]) {
-                    case 'valid': return _p.ss($, ($) => filter_list($.elements.__l_map(($) => Node($, $p))))
+                    case 'valid': return _p.ss($, ($) => filter_list($.elements.__l_map(($) => Value($, $p))))
                     case 'invalid': return _p.ss($, ($) => wrap())
                     default: return _p.au($[0])
                 }
             }))
             case 'nothing': return _p.ss($, ($) => wrap())
             case 'reference': return _p.ss($, ($) => wrap()) //show options?
-            case 'component': return _p.ss($, ($) => Node($.node, $p))
+            case 'component': return _p.ss($, ($) => Value($.node, $p))
             case 'dictionary': return _p.ss($, ($) => _p.decide.state($['found value type'], ($) => {
                 switch ($[0]) {
                     case 'valid': return _p.ss($, ($) => filter_dictionary(
@@ -209,7 +210,7 @@ export const Node = (
                 switch ($[0]) {
                     case 'valid': return _p.ss($, ($) => _p.decide.state($, ($) => {
                         switch ($[0]) {
-                            case 'set': return _p.ss($, ($) => Node($['child node'], $p))
+                            case 'set': return _p.ss($, ($) => Value($['child node'], $p))
                             case 'not set': return _p.ss($, ($) => _p.optional.literal.not_set())
                             default: return _p.au($[0])
                         }
@@ -240,7 +241,7 @@ export const Node = (
                                             )
                                         ))
                                         case 'set': return _p.ss($, ($) => $['found state definition'].__decide<d_out.Optional_Completion_Items>(
-                                            ($) => Node($.node, $p).__decide(
+                                            ($) => Value($.node, $p).__decide(
                                                 ($) => _p.optional.literal.set($),
                                                 () => wrap()
                                             ),
@@ -277,6 +278,6 @@ export const Optional_Node = (
         'indent': string
     }
 ): d_out.Optional_Completion_Items => $.__decide(
-    ($) => Node($, $p),
+    ($) => Value($, $p),
     () => _p.optional.literal.not_set()
 )

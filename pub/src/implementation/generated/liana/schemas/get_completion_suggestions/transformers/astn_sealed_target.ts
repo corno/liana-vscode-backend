@@ -11,41 +11,17 @@ import * as t_out from "astn-core/dist/interface/generated/liana/schemas/sealed_
 
 import * as v_primitives_to_text from "liana-core/dist/implementation/manual/transformers/primitives/text"
 
+import * as v_external_completion_suggestions from "../../completion_suggestions/transformers/astn_sealed_target"
+
 import * as v_external_location from "../../location/transformers/astn_sealed_target"
 
 export const Result: t_signatures.Result = ($) => ['group', ['verbose', _p.dictionary.literal(
     {
-        "completion items": _p_change_context(
-            $['completion items'],
-            ($) => ['list', _p.list.from.list(
+        "completion suggestions": _p_change_context(
+            $['completion suggestions'],
+            ($) => v_external_completion_suggestions.Completion_Suggestions(
                 $,
-            ).map(
-                ($) => ['group', ['verbose', _p.dictionary.literal(
-                    {
-                        "label": _p_change_context(
-                            $['label'],
-                            ($) => ['text', {
-                                'delimiter': ['quote', null],
-                                'value': $,
-                            }],
-                        ),
-                        "insert text": _p_change_context(
-                            $['insert text'],
-                            ($) => ['text', {
-                                'delimiter': ['quote', null],
-                                'value': $,
-                            }],
-                        ),
-                        "documentation": _p_change_context(
-                            $['documentation'],
-                            ($) => ['text', {
-                                'delimiter': ['quote', null],
-                                'value': $,
-                            }],
-                        ),
-                    },
-                )]],
-            )],
+            ),
         ),
     },
 )]]

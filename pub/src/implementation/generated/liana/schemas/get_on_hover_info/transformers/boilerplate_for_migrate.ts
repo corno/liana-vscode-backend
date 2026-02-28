@@ -7,6 +7,8 @@ import * as t_signatures from "../../../../../../interface/generated/liana/schem
 
 import * as t_out from "../../../../../../interface/generated/liana/schemas/get_on_hover_info/data"
 
+import * as v_hover_info from "../../hover_info/transformers/boilerplate_for_migrate"
+
 import * as v_location from "../../location/transformers/boilerplate_for_migrate"
 
 export const Result: t_signatures.Result = ($) => ({
@@ -15,14 +17,8 @@ export const Result: t_signatures.Result = ($) => ({
         ($) => ({
             'hover texts': _p_change_context(
                 $['hover texts'],
-                ($) => _p.optional.from.optional(
+                ($) => v_hover_info.Hover_Texts(
                     $,
-                ).map(
-                    ($) => _p.list.from.list(
-                        $,
-                    ).map(
-                        ($) => $,
-                    ),
                 ),
             ),
         }),

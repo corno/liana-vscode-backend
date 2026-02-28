@@ -1,36 +1,18 @@
 
 import * as _pi from 'pareto-core/dist/interface'
 
+import * as i__imports_completion_suggestions from "../completion_suggestions/data"
+
 import * as i__imports_location from "../location/data"
 
 export namespace Result_ {
     
-    export namespace completion_items {
-        
-        export namespace L {
-            
-            export type label = string
-            
-            export type insert_text = string
-            
-            export type documentation = string
-            
-        }
-        
-        export type L = {
-            readonly 'label': L.label
-            readonly 'insert text': L.insert_text
-            readonly 'documentation': L.documentation
-        }
-        
-    }
-    
-    export type completion_items = _pi.List<completion_items.L>
+    export type completion_suggestions = i__imports_completion_suggestions.Completion_Suggestions
     
 }
 
 export type Result_ = {
-    readonly 'completion items': Result_.completion_items
+    readonly 'completion suggestions': Result_.completion_suggestions
 }
 
 export namespace Parameters_ {

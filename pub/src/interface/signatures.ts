@@ -5,15 +5,15 @@ import * as resources_pareto from "pareto-resources/dist/interface/resources"
 
 export namespace queries {
 
-    export type on_completion = _pi.Query_Function<
-        resources.queries.on_completion,
+    export type get_completion_suggestions = _pi.Query_Function<
+        resources.queries.get_completion_suggestions,
         {
             'read file': resources_pareto.queries.read_file
         }
     >
 
-    export type on_hover = _pi.Query_Function<
-        resources.queries.on_hover,
+    export type get_on_hover_info = _pi.Query_Function<
+        resources.queries.get_on_hover_info,
         {
             'read file': resources_pareto.queries.read_file
         }

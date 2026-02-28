@@ -7,28 +7,15 @@ import * as t_signatures from "../../../../../../interface/generated/liana/schem
 
 import * as t_out from "../../../../../../interface/generated/liana/schemas/get_completion_suggestions/data"
 
+import * as v_completion_suggestions from "../../completion_suggestions/transformers/boilerplate_for_migrate"
+
 import * as v_location from "../../location/transformers/boilerplate_for_migrate"
 
 export const Result: t_signatures.Result = ($) => ({
-    'completion items': _p_change_context(
-        $['completion items'],
-        ($) => _p.list.from.list(
+    'completion suggestions': _p_change_context(
+        $['completion suggestions'],
+        ($) => v_completion_suggestions.Completion_Suggestions(
             $,
-        ).map(
-            ($) => ({
-                'label': _p_change_context(
-                    $['label'],
-                    ($) => $,
-                ),
-                'insert text': _p_change_context(
-                    $['insert text'],
-                    ($) => $,
-                ),
-                'documentation': _p_change_context(
-                    $['documentation'],
-                    ($) => $,
-                ),
-            }),
         ),
     ),
 })

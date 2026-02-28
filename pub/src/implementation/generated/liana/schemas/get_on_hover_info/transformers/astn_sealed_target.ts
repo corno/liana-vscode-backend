@@ -11,6 +11,8 @@ import * as t_out from "astn-core/dist/interface/generated/liana/schemas/sealed_
 
 import * as v_primitives_to_text from "liana-core/dist/implementation/manual/transformers/primitives/text"
 
+import * as v_external_hover_info from "../../hover_info/transformers/astn_sealed_target"
+
 import * as v_external_location from "../../location/transformers/astn_sealed_target"
 
 export const Result: t_signatures.Result = ($) => ['group', ['verbose', _p.dictionary.literal(
@@ -21,18 +23,9 @@ export const Result: t_signatures.Result = ($) => ['group', ['verbose', _p.dicti
                 {
                     "hover texts": _p_change_context(
                         $['hover texts'],
-                        ($) => ['optional', _p.decide.optional(
+                        ($) => v_external_hover_info.Hover_Texts(
                             $,
-                            ($): t_out.Value.optional => ['set', ['list', _p.list.from.list(
-                                $,
-                            ).map(
-                                ($) => ['text', {
-                                    'delimiter': ['quote', null],
-                                    'value': $,
-                                }],
-                            )]],
-                            () => ['not set', null],
-                        )],
+                        ),
                     ),
                 },
             )]],

@@ -21,6 +21,7 @@ export const $$_temp: Signature = ($, abort, $p) => t_sealed_target_to_text.Docu
             ($) => abort(['deserialize', $]),
             {
                 'tab size': 1,
+                'document resource identifier': xxx
             },
         ),
         ($) => abort(['seal', $]),

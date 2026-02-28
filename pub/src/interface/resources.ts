@@ -8,8 +8,8 @@ import * as d_load_document from "pareto-liana/dist/interface/to_be_generated/lo
 
 export namespace queries {
 
-    export type on_completion = _pi.Query<d_on_completion.Result, d_load_document.Error, d_on_completion.Parameters>
-    export type on_hover = _pi.Query<d_on_hover.Result, d_load_document.Error, d_on_hover.Parameters>
+    export type get_completion_suggestions = _pi.Query<d_on_completion.Result, d_load_document.Error, d_on_completion.Parameters>
+    export type get_on_hover_info = _pi.Query<d_on_hover.Result, d_load_document.Error, d_on_hover.Parameters>
     export type seal = _pi.Query<d_on_hover.Result, d_load_document.Error, d_on_hover.Parameters>
     export type validate_document = _pi.Query<d_validate_document.Result, d_load_document.Error, d_validate_document.Parameters>
 

@@ -1,25 +1,15 @@
 
 import * as _pi from 'pareto-core/dist/interface'
 
+import * as i__imports_hover_info from "../hover_info/data"
+
 import * as i__imports_location from "../location/data"
 
 export namespace Result_ {
     
     export namespace contents {
         
-        export namespace hover_texts {
-            
-            export namespace O {
-                
-                export type L = string
-                
-            }
-            
-            export type O = _pi.List<O.L>
-            
-        }
-        
-        export type hover_texts = _pi.Optional_Value<hover_texts.O>
+        export type hover_texts = i__imports_hover_info.Hover_Texts
         
     }
     
