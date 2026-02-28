@@ -13,7 +13,7 @@
 // //dependencies
 // import * as ds_path from "pareto-resources/dist/implementation/manual/schemas/node_path/deserializers"
 // import * as t_unmarshall_result_2_unmarshall_errors from "pareto/dist/implementation/manual/schemas/unmarshall_result/transformers/unmarshall_errors"
-// import { $$ as q_load_document } from "pareto/dist/implementation/manual/queries/load_pareto_document"
+// import { $$ as q_get_unmarshalled_document } from "pareto/dist/implementation/manual/queries/load_pareto_document"
 // import { $$ as s_list_of_separated_texts } from "pareto-standard-operations/dist/implementation/temp_serializers/schemas/list_of_separated_texts"
 
 
@@ -157,7 +157,7 @@
 
 
 // export const $$: signatures.queries.validate_document = _p.query_function(
-//     ($p, $qr) => q_load_document($qr)(
+//     ($p, $qr) => q_get_unmarshalled_document($qr)(
 //         {
 //             'content': $p.content,
 //             'file path': ds_path.Node_Path(

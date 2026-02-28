@@ -5,8 +5,6 @@ export namespace Parameters_ {
     
     export namespace source {
         
-        export type content = string
-        
         export type document_resource_identifier = string
         
         export type tab_size = number
@@ -14,7 +12,6 @@ export namespace Parameters_ {
     }
     
     export type source = {
-        readonly 'content': source.content
         readonly 'document resource identifier': source.document_resource_identifier
         readonly 'tab size': source.tab_size
     }

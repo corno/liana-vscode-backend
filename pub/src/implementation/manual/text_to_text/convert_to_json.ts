@@ -18,13 +18,10 @@ export const $$: Signature = ($, abort, $p,) => t_json_to_text.Value(
             $,
             ($) => abort(null),
             {
-                'document resource identifier': _pdev.implement_me("document resource identifier"),
-                "tab size": _pdev.implement_me("tab size")
+                'document resource identifier': $p.source['document resource identifier'],
+                'tab size': $p.source['tab size']
             },
         )
     ),
-    {
-        'indentation': _pdev.implement_me("indentation"),
-        'newline': _pdev.implement_me("newline"),
-    }
+    $p.target
 )

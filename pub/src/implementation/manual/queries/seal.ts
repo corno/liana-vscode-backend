@@ -5,52 +5,28 @@ import * as signatures from "../../../interface/signatures"
 
 //data types
 import * as d from "../../../interface/generated/liana/schemas/seal/data"
+import * as d_temp from "../../../interface/to_be_generated/seal"
 
 //dependencies
-import { $$x as q_load_document } from "pareto-liana/dist/implementation/manual/queries/load_document"
-import * as t_unmarshall_result_to_hover_info from "../transformers/unmarshall_result/hover_info"
-import * as t_astn_location_to_location from "../transformers/astn_core_location/location"
-import * as r_node_path_from_text from "pareto-resources/dist/implementation/manual/refiners/node_path/text"
+import { $$x as q_get_unmarshalled_document } from "pareto-liana/dist/implementation/manual/queries/get_unmarshalled_document"
+import * as r_sealed_target_from_unmarshalled_document from "pareto-liana/dist/implementation/manual/refiners/astn_sealed_target/unmarshall_result"
+import * as t_sealed_target_to_text from "astn-core/dist/implementation/manual/transformers/sealed_target/text"
 
-export const $$: signatures.queries.get_on_hover_info = _p.query_function(
-	($p, $qr) => q_load_document($qr)(
+export const $$: signatures.queries.seal = _p.query_function(
+	($p, $qr) => q_get_unmarshalled_document($qr)(
 		{
 			'content': $p.content,
-			'file path': $p['file path']
+			'file path': $p.source['file path'],
+			'tab size': $p.source['tab size'],
 		},
-		($) => $,
-	).transform_result(($): d.Result => ({
-		'contents': {
-			'hover texts': t_unmarshall_result_to_hover_info.Node($, {
-				'position': $p.position,
-				'full path': "",
-				'id path': "",
-			})
-		}
-	}))
+		($): d_temp.Error => ['unmarshall', $],
+	).refine_without_error_transformation(
+		($, abort) => r_sealed_target_from_unmarshalled_document.Document(
+			$,
+			($) => abort(['seal', $]),
+		),
+	).transform_result(($): d.Result => t_sealed_target_to_text.Document(
+		$,
+		$p.target
+	))
 )
-
-
-// export const $$_temp: Signature = ($, abort, $p) => t_sealed_target_to_text.Document(
-//     r_astn_parse_tree_2_sealed_ast.Document(
-//         r_parse_tree_from_text.Document(
-//             $,
-//             ($) => abort(['deserialize', $]),
-//             {
-//                 'tab size': 1,
-//                 'document resource identifier': xxx
-//             },
-//         ),
-//         ($) => abort(['seal', $]),
-//         {
-//             'definition': $p['definition'],
-//             'definition path': $p['definition path'],
-//         }
-//     ),
-//     {
-//         'indentation': "",
-//         'newline': "\n",
-//     }
-// )
-
-// export const $$x: signatures.queries.load_document = _p.query_function(

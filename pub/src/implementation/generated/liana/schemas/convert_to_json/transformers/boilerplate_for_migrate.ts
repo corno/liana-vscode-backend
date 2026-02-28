@@ -11,10 +11,6 @@ export const Parameters: t_signatures.Parameters = ($) => ({
     'source': _p_change_context(
         $['source'],
         ($) => ({
-            'content': _p_change_context(
-                $['content'],
-                ($) => $,
-            ),
             'document resource identifier': _p_change_context(
                 $['document resource identifier'],
                 ($) => $,

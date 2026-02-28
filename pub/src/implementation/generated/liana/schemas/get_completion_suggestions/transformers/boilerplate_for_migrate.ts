@@ -27,11 +27,20 @@ export const Parameters: t_signatures.Parameters = ($) => ({
         $['content'],
         ($) => $,
     ),
-    'file path': _p_change_context(
-        $['file path'],
-        ($) => v_path.Node_Path(
-            $,
-        ),
+    'source': _p_change_context(
+        $['source'],
+        ($) => ({
+            'file path': _p_change_context(
+                $['file path'],
+                ($) => v_path.Node_Path(
+                    $,
+                ),
+            ),
+            'tab size': _p_change_context(
+                $['tab size'],
+                ($) => $,
+            ),
+        }),
     ),
     'position': _p_change_context(
         $['position'],

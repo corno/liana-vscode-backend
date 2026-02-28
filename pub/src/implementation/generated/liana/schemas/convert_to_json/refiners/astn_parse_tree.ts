@@ -13,7 +13,7 @@ import * as t_out from "../../../../../../interface/generated/liana/schemas/conv
 
 import * as v_unmarshalled_from_parse_tree from "liana-core/dist/implementation/manual/refiners/unmarshalled/astn_parse_tree"
 
-import * as v_parse_tree_to_location from "astn-core/dist/implementation/manual/transformers/parse_tree/location"
+import * as v_parse_tree_to_location from "astn-core/dist/implementation/manual/transformers/parse_tree/start_token_range"
 
 export const Parameters: t_signatures.Parameters = ($, abort) => _p_change_context(
     v_unmarshalled_from_parse_tree.Verbose_Group(
@@ -56,7 +56,6 @@ export const Parameters: t_signatures.Parameters = ($, abort) => _p_change_conte
                             {
                                 'expected properties': _p.dictionary.literal(
                                     {
-                                        "content": null,
                                         "document resource identifier": null,
                                         "tab size": null,
                                     },
@@ -70,23 +69,6 @@ export const Parameters: t_signatures.Parameters = ($, abort) => _p_change_conte
                                     $['value'],
                                 )
                                 return {
-                                    'content': _p_change_context(
-                                        v_unmarshalled_from_parse_tree.Property(
-                                            $,
-                                            ($) => abort(
-                                                $,
-                                            ),
-                                            {
-                                                'id': 'content',
-                                            },
-                                        ),
-                                        ($) => v_unmarshalled_from_parse_tree.Text(
-                                            $,
-                                            ($) => abort(
-                                                $,
-                                            ),
-                                        ),
-                                    ),
                                     'document resource identifier': _p_change_context(
                                         v_unmarshalled_from_parse_tree.Property(
                                             $,

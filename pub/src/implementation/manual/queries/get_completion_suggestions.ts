@@ -8,17 +8,15 @@ import * as signatures from "../../../interface/signatures"
 import * as d from "../../../interface/generated/liana/schemas/get_completion_suggestions/data"
 
 //dependencies
-import { $$x as q_load_document } from "pareto-liana/dist/implementation/manual/queries/load_document"
+import { $$x as q_get_unmarshalled_document } from "pareto-liana/dist/implementation/manual/queries/get_unmarshalled_document"
 import * as t_unmarshall_result_to_completion_suggestions from "../transformers/unmarshall_result/completion_suggestions"
-import * as t_astn_location_to_location from "../transformers/astn_core_location/location"
-import * as r_path_from_text from "pareto-resources/dist/implementation/manual/refiners/node_path/text"
-
 
 export const $$: signatures.queries.get_completion_suggestions = _p.query_function(
-    ($p, $qr) => q_load_document($qr)(
+    ($p, $qr) => q_get_unmarshalled_document($qr)(
         {
             'content': $p.content,
-            'file path': $p['file path']
+            'file path': $p.source['file path'],
+            'tab size': $p.source['tab size']
         },
         ($) => $,
     ).transform_result(($): d.Result => ({
@@ -28,9 +26,6 @@ export const $$: signatures.queries.get_completion_suggestions = _p.query_functi
                 'position': $p.position,
                 'indent': $p.indent,
             }
-        ).__decide(
-            ($) => $,
-            () => _p.list.literal([]),
         )
     }))
 )

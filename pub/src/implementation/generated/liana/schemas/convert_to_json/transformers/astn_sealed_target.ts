@@ -17,13 +17,6 @@ export const Parameters: t_signatures.Parameters = ($) => ['group', ['verbose', 
             $['source'],
             ($) => ['group', ['verbose', _p.dictionary.literal(
                 {
-                    "content": _p_change_context(
-                        $['content'],
-                        ($) => ['text', {
-                            'delimiter': ['quote', null],
-                            'value': $,
-                        }],
-                    ),
                     "document resource identifier": _p_change_context(
                         $['document resource identifier'],
                         ($) => ['text', {

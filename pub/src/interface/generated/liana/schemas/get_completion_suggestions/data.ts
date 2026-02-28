@@ -21,7 +21,18 @@ export namespace Parameters_ {
     
     export type content = string
     
-    export type file_path = i__imports_path.Node_Path
+    export namespace source {
+        
+        export type file_path = i__imports_path.Node_Path
+        
+        export type tab_size = number
+        
+    }
+    
+    export type source = {
+        readonly 'file path': source.file_path
+        readonly 'tab size': source.tab_size
+    }
     
     export type position = i__imports_location.Position
     
@@ -31,7 +42,7 @@ export namespace Parameters_ {
 
 export type Parameters_ = {
     readonly 'content': Parameters_.content
-    readonly 'file path': Parameters_.file_path
+    readonly 'source': Parameters_.source
     readonly 'position': Parameters_.position
     readonly 'indent': Parameters_.indent
 }

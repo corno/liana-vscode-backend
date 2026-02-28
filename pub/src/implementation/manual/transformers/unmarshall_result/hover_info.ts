@@ -2,125 +2,130 @@ import * as _pi from 'pareto-core/dist/interface'
 import * as _p from 'pareto-core/dist/assign'
 import * as _pdev from 'pareto-core-dev'
 
-import * as d_in from "pareto-liana/dist/interface/to_be_generated/temp_unmashall_result"
-
-import * as d_token from "astn-core/dist/interface/generated/liana/schemas/token/data"
-
-import * as d_out from "../../../../interface/generated/liana/schemas/server/data"
+//data types
+import * as d_in from "pareto-liana/dist/interface/to_be_generated/unmashall_result"
+import * as d_astn_location from "astn-core/dist/interface/generated/liana/schemas/location/data"
 import * as d_location from "../../../../interface/generated/liana/schemas/location/data"
+import * as d_out from "../../../../interface/generated/liana/schemas/hover_info/data"
 
-import { $$ as op_expect_1_element } from "pareto-standard-operations/dist/implementation/operations/impure/list/expect_exactly_one_element"
+// import { $$ as op_expect_1_element } from "pareto-standard-operations/dist/implementation/operations/impure/list/expect_exactly_one_element"
 
-import * as t_ast_to_range from "astn/dist/implementation/manual/schemas/parse_tree/transformers/token"
+//dependencies
+import * as t_parse_tree_to_location from "astn-core/dist/implementation/manual/transformers/parse_tree/start_token_range"
+import * as t_astn_location_to_location from "../astn_core_location/location"
 
 
-
-const is_in_range = (
-    $: d_token.Relative_Location,
-    $p: {
-        'range': d_token.Range
-
-    }
-): boolean => (
-    $p.range.start.relative.line < $.line
-    ||
-    ($p.range.start.relative.line === $.line && $p.range.start.relative.column <= $.column)
-) && (
-        $p.range.end.relative.line > $.line
-        ||
-        ($p.range.end.relative.line === $.line && $p.range.end.relative.column >= $.column)
-    )
-
-const filter_dictionary = ($: _pi.Dictionary<d_out.Optional_Hover_Texts>): d_out.Optional_Hover_Texts => {
-
-    type Key_Value_Pair<T> = {
-        'key': string,
-        'value': T,
-    }
-
-    const op_expect_1_entry = <T>($: _pi.Dictionary<T>): _pi.Optional_Value<Key_Value_Pair<T>> => {
-        let found: null | Key_Value_Pair<T> = null
-        let found_too_many = false
-        $.__d_map(($, id) => {
-            if (found !== null) {
-                found_too_many = true
-            }
-            found = {
-                'key': key,
-                'value': $,
-            }
-        })
-        if (found_too_many) {
-            //more than one entry
-            return _p.optional.literal.not_set()
-        }
-        if (found === null) {
-            //not found
-            return _p.optional.literal.not_set()
-        }
-        return _p.optional.literal.set(found)
-    }
-    return _p_change_context(
-        _p.dictionary.filter($, ($) => $),
-        ($) => _p.boolean.dictionary_is_empty($)
-            ? _p.optional.literal.not_set()
-            : op_expect_1_entry($).__decide<d_out.Optional_Hover_Texts>(
-                ($) => _p.optional.literal.set($.value),
-                () => _p_unreachable_code_path(),
-            )
-    )
-}
-const filter_list = ($: _pi.List<d_out.Optional_Hover_Texts>): d_out.Optional_Hover_Texts => _p_change_context(
-    _p.list.filter($, ($) => $),
-    ($) => _p.boolean.list_is_empty($)
-        ? _p.optional.literal.not_set()
-        : op_expect_1_element($).__decide<d_out.Optional_Hover_Texts>(
-            ($) => _p.optional.literal.set($),
-            () => _p_unreachable_code_path(),
-        )
-)
-
-export const Group_Content = (
-    $: d_in.Group_Content,
-    $p: {
-        'location': d_token.Relative_Location
-        'full path': string
-        'id path': string
-    }
-): d_out.Optional_Hover_Texts => filter_dictionary(
-    $.properties.__d_map(($, id): d_out.Optional_Hover_Texts => _p.decide.state($, ($) => {
-        switch ($[0]) {
-            case 'multiple': return _p.ss($, ($) => _p.optional.literal.not_set())
-            case 'missing': return _p.ss($, ($) => _p.optional.literal.not_set())
-            case 'unique': return _p.ss($, ($) => Optional_Node($.node, {
-                'location': $p.location,
-                'full path': `${$p['full path']} . '${key}'`,
-                'id path': $p['id path']
-            }))
-            default: return _p.au($[0])
-        }
-    }))
-)
-
-export const Node = (
-    $: d_in.Node,
-    $p: {
+export type Document = _pi.Transformer_With_Parameter<
+    d_in.Document,
+    d_out.Hover_Texts,
+    {
         'position': d_location.Position
         'full path': string
         'id path': string
     }
-): d_out.Optional_Hover_Texts => {
+>
+export type Value = _pi.Transformer_With_Parameter<
+    d_in.Value,
+    d_out.Hover_Texts,
+    {
+        'position': d_location.Position
+        'full path': string
+        'id path': string
+    }
+>
+
+export const Document: Document = ($, $p) => Value($.content, {
+    'position': $p.position,
+    'full path': $p['full path'],
+    'id path': $p['id path']
+})
+
+// const filter_dictionary = ($: _pi.Dictionary<d_out.Hover_Texts>): d_out.Hover_Texts => {
+
+//     type Key_Value_Pair<T> = {
+//         'key': string,
+//         'value': T,
+//     }
+
+//     const op_expect_1_entry = <T>($: _pi.Dictionary<T>): _pi.Optional_Value<Key_Value_Pair<T>> => {
+//         let found: null | Key_Value_Pair<T> = null
+//         let found_too_many = false
+//         $.__d_map(($, id) => {
+//             if (found !== null) {
+//                 found_too_many = true
+//             }
+//             found = {
+//                 'key': id,
+//                 'value': $,
+//             }
+//         })
+//         if (found_too_many) {
+//             //more than one entry
+//             return _p.optional.literal.not_set()
+//         }
+//         if (found === null) {
+//             //not found
+//             return _p.optional.literal.not_set()
+//         }
+//         return _p.optional.literal.set(found)
+//     }
+//     return _p_change_context(
+//         _p.dictionary.filter($, ($) => $),
+//         ($) => _p.boolean.dictionary_is_empty($)
+//             ? _p.optional.literal.not_set()
+//             : op_expect_1_entry($).__decide<d_out.Hover_Texts>(
+//                 ($) => _p.optional.literal.set($.value),
+//                 () => _p_unreachable_code_path(),
+//             )
+//     )
+// }
+// const filter_list = ($: _pi.List<d_out.Hover_Texts>): d_out.Hover_Texts => _p_change_context(
+//     _p.list.filter($, ($) => $),
+//     ($) => _p.boolean.list_is_empty($)
+//         ? _p.optional.literal.not_set()
+//         : op_expect_1_element($).__decide<d_out.Hover_Texts>(
+//             ($) => _p.optional.literal.set($),
+//             () => _p_unreachable_code_path(),
+//         )
+// )
+
+// export const Group_Content = (
+//     $: d_in.Group_Content,
+//     $p: {
+//         'position': d_location.Position
+//         'full path': string
+//         'id path': string
+//     }
+// ): d_out.Hover_Texts => filter_dictionary(
+//     $.properties.__d_map(($, id): d_out.Hover_Texts => _p.decide.state($, ($) => {
+//         switch ($[0]) {
+//             case 'multiple': return _p.ss($, ($) => _p.optional.literal.not_set())
+//             case 'missing': return _p.ss($, ($) => _p.optional.literal.not_set())
+//             case 'unique': return _p.ss($, ($) => Optional_Value($.node, {
+//                 'position': $p.position,
+//                 'full path': `${$p['full path']} . '${key}'`,
+//                 'id path': $p['id path']
+//             }))
+//             default: return _p.au($[0])
+//         }
+//     }))
+// )
+
+export const Value: Value = ($, $p) => {
     // if (is_in_range($.value.range))
 
     // Check if the node is in the specified location
     // if (in_range($)) {
 
-    const node = $
-    const node_range = t_ast_to_range.Value($.value)
 
-    const in_range = is_in_range($p.location, { range: node_range })
+    const in_range = is_in_range(
+        $p.position,
+        {
+            range: t_astn_location_to_location.Range(value_range)
+        }
+    )
 
-    const wrap = (): d_out.Optional_Hover_Texts => in_range
+    const wrap = (): d_out.Hover_Texts => in_range
         ? _p.optional.literal.set(_p.list.literal([$p['full path'], $p['id path']]))
         : _p.optional.literal.not_set()
 
@@ -129,14 +134,14 @@ export const Node = (
         return _p.optional.literal.not_set()
     }
     else {
-        return _p.decide.state($.type, ($): d_out.Optional_Hover_Texts => {
+        return _p.decide.state($.instance.type, ($): d_out.Hover_Texts => {
             switch ($[0]) {
                 case 'number': return _p.ss($, ($) => wrap())
                 case 'boolean': return _p.ss($, ($) => wrap())
                 case 'type parameter': return _p.ss($, ($) => _pdev.implement_me("xx"))
                 case 'list': return _p.ss($, ($) => _p.decide.state($['found value type'], ($) => {
                     switch ($[0]) {
-                        case 'valid': return _p.ss($, ($) => filter_list($.elements.__l_map(($) => Node($, {
+                        case 'valid': return _p.ss($, ($) => filter_list($.elements.__l_map(($) => Value($, {
                             'location': $p.location,
                             'full path': `${$p['full path']} [ # ]`,
                             'id path': $p['id path']
@@ -147,7 +152,7 @@ export const Node = (
                 }))
                 case 'nothing': return _p.ss($, ($) => wrap())
                 case 'reference': return _p.ss($, ($) => wrap()) //show options?
-                case 'component': return _p.ss($, ($) => Node($.node, {
+                case 'component': return _p.ss($, ($) => Value($.node, {
                     'location': $p.location,
                     'full path': $p['full path'],
                     'id path': $p['id path']
@@ -155,14 +160,14 @@ export const Node = (
                 case 'dictionary': return _p.ss($, ($) => _p.decide.state($['found value type'], ($) => {
                     switch ($[0]) {
                         case 'valid': return _p.ss($, ($) => filter_dictionary(
-                            $.entries.__d_map(($, id): d_out.Optional_Hover_Texts => _p.decide.state($, ($) => {
+                            $.entries.__d_map(($, id): d_out.Hover_Texts => _p.decide.state($, ($) => {
                                 switch ($[0]) {
-                                    case 'multiple': return _p.ss($, ($) => filter_list($.__l_map(($) => Optional_Node($.node, {
+                                    case 'multiple': return _p.ss($, ($) => filter_list($.__l_map(($) => Optional_Value($.node, {
                                         'location': $p.location,
                                         'full path': `${$p['full path']} [ \`${key}\` ]`,
                                         'id path': `${$p['id path']} > \`${key}\``
                                     }))))
-                                    case 'unique': return _p.ss($, ($) => Optional_Node($, {
+                                    case 'unique': return _p.ss($, ($) => Optional_Value($, {
                                         'location': $p.location,
                                         'full path': `${$p['full path']} [ \`${key}\` ]`,
                                         'id path': `${$p['id path']} > \`${key}\``
@@ -201,7 +206,7 @@ export const Node = (
                     switch ($[0]) {
                         case 'valid': return _p.ss($, ($) => _p.decide.state($, ($) => {
                             switch ($[0]) {
-                                case 'set': return _p.ss($, ($) => Node($['child node'], {
+                                case 'set': return _p.ss($, ($) => Value($['child node'], {
                                     'location': $p.location,
                                     'full path': `${$p['full path']} *`,
                                     'id path': $p['id path']
@@ -222,7 +227,7 @@ export const Node = (
                                 switch ($[0]) {
                                     case 'state': return _p.ss($, ($) => _p.decide.state($['value substatus'], ($) => {
                                         switch ($[0]) {
-                                            case 'missing data': return _p.ss($, ($): d_out.Optional_Hover_Texts => _p.optional.literal.set(
+                                            case 'missing data': return _p.ss($, ($): d_out.Hover_Texts => _p.optional.literal.set(
                                                 _p.list.from_dictionary(
                                                     def,
                                                     ($, id) => key
@@ -230,8 +235,8 @@ export const Node = (
                                             ))
                                             case 'set': return _p.ss($, ($) => {
                                                 const temp = $.value.state.value
-                                                return $['found state definition'].__decide<d_out.Optional_Hover_Texts>(
-                                                    ($) => Node($.node, {
+                                                return $['found state definition'].__decide<d_out.Hover_Texts>(
+                                                    ($) => Value($.node, {
                                                         'location': $p.location,
                                                         'full path': `${$p['full path']} | '${temp}'`,
                                                         'id path': $p['id path']
@@ -260,23 +265,23 @@ export const Node = (
                     })
                 })
                 case 'text': return _p.ss($, ($) => wrap())
-
+                default: return _p.au($[0])
             }
         })
     }
 
 }
 
-export const Optional_Node = (
-    $: d_in.Optional_Node,
+export const Optional_Value = (
+    $: d_in.Optional_Value,
     $p: {
-        'location': d_token.Relative_Location
+        'position': d_location.Position
         'full path': string
         'id path': string
     }
-): d_out.Optional_Hover_Texts => $.__decide(
-    ($) => Node($, {
-        'location': $p.location,
+): d_out.Hover_Texts => $.__decide(
+    ($) => Value($, {
+        'position': $p.position,
         'full path': $p['full path'],
         'id path': $p['id path']
     }),
