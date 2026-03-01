@@ -20,12 +20,15 @@ export const $$: signatures.queries.get_completion_suggestions = _p.query_functi
         },
         ($) => $,
     ).transform_result(($): d.Result => ({
-        'completion suggestions': t_unmarshall_result_to_completion_suggestions.Value(
-            $.content,
+        'completion suggestions': t_unmarshall_result_to_completion_suggestions.Document(
+            $,
             {
                 'position': $p.position,
                 'indent': $p.indent,
             }
+        ).__decide(
+            ($) => $,
+            () => _p.list.literal([]),
         )
     }))
 )
